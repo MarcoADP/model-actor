@@ -10,17 +10,19 @@ import akka.actor.typed.javadsl.*;
 public class Cliente extends AbstractBehavior<PedidoMessage> {
 
     private final ActorRef<PedidoMessage> pizzaria;
+    private final String sabor;
 
-    public static Behavior<PedidoMessage> create(ActorRef<PedidoMessage> pizzaria) {
-        return Behaviors.setup(context -> new Cliente(context, pizzaria));
+    public static Behavior<PedidoMessage> create(ActorRef<PedidoMessage> pizzaria, String sabor) {
+        return Behaviors.setup(context -> new Cliente(context, pizzaria, sabor));
     }
 
-    private Cliente(ActorContext<PedidoMessage> context, ActorRef<PedidoMessage> pizzaria) {
+    private Cliente(ActorContext<PedidoMessage> context, ActorRef<PedidoMessage> pizzaria, String sabor) {
         super(context);
         this.pizzaria = pizzaria;
+        this.sabor = sabor;
 
         // Faz o pedido ao iniciar
-        pizzaria.tell(new PedidoCriar("calabresa", context.getSelf()));
+        pizzaria.tell(new PedidoCriar(sabor, context.getSelf()));
     }
 
     @Override
