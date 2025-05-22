@@ -24,8 +24,8 @@ public class Pizzaria extends AbstractBehavior<PedidoMessage> {
     }
 
     private Behavior<PedidoMessage> onFazerPedido(PedidoCriar pedido) {
-        getContext().getLog().info("🍕 Recebido pedido: {}", pedido.sabor);
-        pedido.cliente.tell(new PedidoFinalizar("Pizza de " + pedido.sabor + " pronta!"));
+        getContext().getLog().info("🍕 Recebido pedido: {}", pedido.sabor());
+        pedido.cliente().tell(new PedidoFinalizar("Pizza de " + pedido.sabor() + " pronta!"));
         return this;
     }
 }

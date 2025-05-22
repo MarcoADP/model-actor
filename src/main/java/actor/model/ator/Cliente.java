@@ -31,7 +31,7 @@ public class Cliente extends AbstractBehavior<PedidoMessage> {
     }
 
     private Behavior<PedidoMessage> onPedidoConcluido(PedidoFinalizar msg) {
-        getContext().getLog().info("👨‍🍳 Cliente recebeu: {}", msg.mensagem);
+        getContext().getLog().info("👨‍🍳 Cliente recebeu: {}", msg.mensagem());
         return this;
     }
 }
