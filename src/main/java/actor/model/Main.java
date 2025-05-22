@@ -14,16 +14,12 @@ public class Main {
         ActorSystem<PedidoMessage> sistema = ActorSystem.create(
                 Behaviors.setup(context -> {
 
-                    // Cria pizzaria
-                    ActorRef<PedidoMessage> pizzaria = context.spawn(Pizzaria.create(), "pizzaria");
+                    ActorRef<PedidoMessage> pizzaria = context.spawn(Pizzaria.create(2), "pizzaria");
 
-                    // Lista de sabores para simular múltiplos pedidos/clientes
-                    List<String> sabores = List.of("calabresa", "marguerita", "portuguesa", "frango com catupiry", "quatro queijos");
+                    List<String> sabores = List.of("calabresa", "marguerita", "portuguesa", "frango", "quatro queijos", "napolitana");
 
-                    // Cria um cliente para cada pedido
                     for (int i = 0; i < sabores.size(); i++) {
-                        String nomeCliente = "cliente" + (i + 1);
-                        context.spawn(Cliente.create(pizzaria, sabores.get(i)), nomeCliente);
+                        context.spawn(Cliente.create(pizzaria, sabores.get(i)), "cliente" + i);
                     }
 
                     return Behaviors.empty();

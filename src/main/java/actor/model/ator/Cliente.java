@@ -7,6 +7,8 @@ import akka.actor.typed.ActorRef;
 import akka.actor.typed.Behavior;
 import akka.actor.typed.javadsl.*;
 
+import static actor.model.util.TimeUtil.getHorario;
+
 public class Cliente extends AbstractBehavior<PedidoMessage> {
 
     private final ActorRef<PedidoMessage> pizzaria;
@@ -33,7 +35,7 @@ public class Cliente extends AbstractBehavior<PedidoMessage> {
     }
 
     private Behavior<PedidoMessage> onPedidoConcluido(PedidoFinalizar msg) {
-        getContext().getLog().info("👨‍🍳 Cliente recebeu: {}", msg.mensagem());
+        getContext().getLog().info("{}: 👨‍🍳 Cliente recebeu: {}", getHorario(), msg.mensagem());
         return this;
     }
 }
